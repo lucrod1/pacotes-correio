@@ -11,5 +11,5 @@
 </script>
 
 <style>
-  /* CSS */
+  @import "~bootstrap/dist/css/bootstrap.min.css";
 </style>
