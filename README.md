@@ -17,6 +17,16 @@ npm run build
 # run unit tests
 npm test
 
+###IMPORTANTE
+
+#caso o sqlite nao rodar na primeira vez tem que exeuctar o comando:
+yarn run rebuild
+
+#para rodar o build tem que estar com a versão 2.7.4 do python instalada na máquina.
+npm run build:dir
+or
+yarn build
+
 
 ```
 
