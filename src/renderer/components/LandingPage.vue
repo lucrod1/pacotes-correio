@@ -32,6 +32,7 @@
 <script>
   import SystemInformation from './LandingPage/SystemInformation'
   import { User } from '../datastore';
+  import { Room } from '../models';
 
   export default {
     name: 'landing-page',
