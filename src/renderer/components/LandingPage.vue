@@ -21,8 +21,8 @@
         </div>
         <div class="doc">
           <div class="title alt">Other Documentation</div>
-          <button class="alt" @click="open('https://electron.atom.io/docs/')">Electron</button>
-          <button class="alt" @click="open('https://vuejs.org/v2/guide/')">Vue.js</button>
+          <button class="alt" @click="open('https://electron.atom.io/docs/')">Insert</button>
+          <button class="alt" @click="list()">List</button>
         </div>
       </div>
     </main>
@@ -31,13 +31,27 @@
 
 <script>
   import SystemInformation from './LandingPage/SystemInformation'
+  import { User } from '../datastore';
 
   export default {
     name: 'landing-page',
     components: { SystemInformation },
     methods: {
       open (link) {
-        this.$router.push('/home');
+        //this.$router.push('/home');
+        // User.sync().then(function(){
+          User.create({ username: 'fnord', password: 'omnomnom' }).then( () => {
+              console.log('created');
+            }
+          );
+        // })
+
+      },
+      list () {
+        User.findAll().then(function(result){
+          console.log(result);
+        });
+
       }
     }
   }
