@@ -112,7 +112,7 @@
         })
       },
       openForEdit (r) {
-        this.room = JSON.parse(JSON.stringify(r))
+        this.room = JSON.parse(JSON.stringify(r));
         this.editing = true;
       },
       remove () {
