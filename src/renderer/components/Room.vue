@@ -40,9 +40,12 @@
     </form>
 
     <div class="row">
-      <button type="button" class="btn btn-primary" @click="save()">Cadastrar</button>
+      <div class="col-sm-12">
+        <button type="button" class="btn btn-primary mr-3" @click="save()">Cadastrar</button>
+        <button type="button" v-if="editing" class="btn btn-warning" @click="remove()">Deletar</button>
+      </div>
     </div>
-
+    <br/>
     <div class="row">
       <div class="col-sm-12">
         <table class="table">
@@ -55,7 +58,7 @@
           </tr>
           </thead>
           <tbody>
-          <tr v-for="r in rooms">
+          <tr v-for="r in rooms" @click="openForEdit(r)">
             <th scope="row">{{r.number}}</th>
             <td >{{r.name}}</td>
             <td >{{r.responsible}}</td>
@@ -69,37 +72,53 @@
 </template>
 
 <script>
-  import { mapState, mapActions } from 'vuex';
+  import { mapState } from 'vuex';
   import store from '../store/index';
 
   export default {
     name: 'room',
-    components: { },
     data() {
       return {
-        room: {
-          number: 0,
-          name: '',
-          responsible: '',
-          observation: ''
-        }
+        room: {},
+        editing: false
       };
     },
     computed: mapState({
-      room: state => state.room.room,
       rooms: state => state.room.rooms
     }),
     methods: {
-      ...mapActions([
-        '..store/modules/room',
-      ]),
+      resetRoom () {
+          this.room = {
+              number: null,
+              name: '',
+              responsible: '',
+              observation: ''
+          };
+          this.editing = false;
+      },
       save() {
         store.dispatch({
           type: 'room/create',
-          room: {number: 10, name: 'redspark', observation: 'testeee', responsible: 'Bruno Quieroz'}
-        });
+          room: this.room
+        }).then(
+            this.resetRoom()
+        );
       },
+      openForEdit (r) {
+        this.room = r;
+        this.editing = true;
+      },
+      remove () {
+        store.dispatch('room/remove', this.room.number).then(() => {
+          this.resetRoom();
+          store.dispatch('room/list')
+        })
+      }
     },
+    created () {
+      this.resetRoom();
+      store.dispatch('room/list')
+    }
   };
 </script>
 
