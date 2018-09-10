@@ -6,11 +6,12 @@
           <div class="form-group form-group-sm col-sm-6">
             <div class="row">
               <label for="room_number" class="col-sm-3 col-form-label">Número da Sala</label>
-              <div class="col-sm-9">
-                <input type="text" class="form-control" id="room_number" name="room_number" v-model="room.number">
+              <div class="col-sm-3">
+                <input type="text" :disabled="editing" class="form-control" id="room_number" name="room_number" v-model="room.number">
               </div>
             </div>
           </div>
+          <div class="form-group form-group-sm col-sm-6"></div>
           <div class="form-group form-group-sm col-sm-6">
             <div class="row">
               <label for="name" class="col-sm-3 col-form-label">Nome</label>
@@ -31,7 +32,17 @@
             <div class="row">
               <label for="observation" class="col-sm-3 col-form-label">Observação</label>
               <div class="col-sm-9">
-                <input type="text" class="form-control" id="observation" name="observation" v-model="room.observation">
+                <textarea type="text" class="form-control" id="observation" name="observation" v-model="room.observation"></textarea>
+              </div>
+            </div>
+          </div>
+          <div class="form-group form-group-sm col-sm-6"></div>
+          <div class="form-group form-group-sm col-sm-6">
+            <div class="row">
+              <label class="col-sm-3 col-form-label"></label>
+              <div class="col-sm-9">
+                <button type="button" class="btn btn-primary mr-3" @click="save()">Salvar</button>
+                <button type="button" v-if="editing" class="btn btn-warning" @click="remove()">Deletar</button>
               </div>
             </div>
           </div>
@@ -39,30 +50,25 @@
       </div>
     </form>
 
-    <div class="row">
-      <div class="col-sm-12">
-        <button type="button" class="btn btn-primary mr-3" @click="save()">Cadastrar</button>
-        <button type="button" v-if="editing" class="btn btn-warning" @click="remove()">Deletar</button>
-      </div>
-    </div>
     <br/>
     <div class="row">
       <div class="col-sm-12">
-        <table class="table">
+        <table class="table table-condensed">
           <thead>
-          <tr>
-            <th scope="col">#</th>
-            <th scope="col">First</th>
-            <th scope="col">Last</th>
-            <th scope="col">Handle</th>
-          </tr>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Nome</th>
+              <th scope="col">Responsável</th>
+              <th scope="col">Observação</th>
+            </tr>
           </thead>
           <tbody>
-          <tr v-for="r in rooms" @click="openForEdit(r)">
-            <th scope="row">{{r.number}}</th>
-            <td >{{r.name}}</td>
-            <td >{{r.responsible}}</td>
-          </tr>
+            <tr class="cursor-pointer" v-for="r in rooms" @click="openForEdit(r)">
+              <td scope="row">{{r.number}}</td>
+              <td >{{r.name}}</td>
+              <td >{{r.responsible}}</td>
+              <td >{{r.observation}}</td>
+            </tr>
           </tbody>
         </table>
       </div>
@@ -87,6 +93,9 @@
       rooms: state => state.room.rooms
     }),
     methods: {
+      refreshRooms () {
+        store.dispatch('room/list')
+      },
       resetRoom () {
           this.room = {
               number: null,
@@ -97,27 +106,25 @@
           this.editing = false;
       },
       save() {
-        store.dispatch({
-          type: 'room/create',
-          room: this.room
-        }).then(
-            this.resetRoom()
-        );
+        store.dispatch('room/create', this.room).then(() => {
+          this.resetRoom();
+          this.refreshRooms();
+        })
       },
       openForEdit (r) {
-        this.room = r;
+        this.room = JSON.parse(JSON.stringify(r))
         this.editing = true;
       },
       remove () {
-        store.dispatch('room/remove', this.room.number).then(() => {
+        store.dispatch('room/remove', this.room.id).then(() => {
           this.resetRoom();
-          store.dispatch('room/list')
+          this.refreshRooms();
         })
       }
     },
     created () {
       this.resetRoom();
-      store.dispatch('room/list')
+      this.refreshRooms();
     }
   };
 </script>
@@ -203,5 +210,9 @@
   .doc button.alt {
     color: #42b983;
     background-color: transparent;
+  }
+
+  .cursor-pointer{
+    cursor: pointer;
   }
 </style>

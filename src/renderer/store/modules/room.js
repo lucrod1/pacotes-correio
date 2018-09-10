@@ -6,34 +6,38 @@ const state = {
 }
 
 const mutations = {
-  CREATE_NEW_ROOM (state, room) {
+  SAVE (state, room) {
     console.log(room);
     // var room = {number: 10, name: 'redspark', observation: 'testeee', responsible: 'Bruno Quieroz'};
-    Room.create(room);
-    state.rooms.push(room);
+    if(room.id) {
+      Room.update(room, { fields: ['observation','name', 'responsible'],  where: { id: room.id} })
+    } else {
+      Room.create(room);
+      state.rooms.push(room);
+    }
     // console.log('CREATE_NEW_ROOM');
   },
   LIST_ALL (state, rooms) {
     state.rooms = rooms
   },
-  REMOVE_BY_NUMBER (state, roomNumber) {
-    Room.destroy({ where: { number: roomNumber} }).then((result) => {
+  REMOVE_BY_ID (state, roomId) {
+    Room.destroy({ where: { id: roomId} }).then((result) => {
       console.log(result)
     })
   },
 }
 
 const actions = {
-  create ({ commit }, action) {
-    commit('CREATE_NEW_ROOM', action.room)
+  create ({ commit }, room) {
+    commit('SAVE', room)
   },
   list ({ commit }) {
     Room.findAll().then(rooms => {
       commit('LIST_ALL', rooms)
     })
   },
-  remove ({ commit }, roomNumber) {
-    commit('REMOVE_BY_NUMBER', roomNumber)
+  remove ({ commit }, roomId) {
+    commit('REMOVE_BY_ID', roomId)
   }
 }
 
