@@ -106,7 +106,7 @@
           this.editing = false;
       },
       save() {
-        store.dispatch('room/create', this.room).then(() => {
+        store.dispatch('room/save', this.room).then(() => {
           this.resetRoom();
           this.refreshRooms();
         })

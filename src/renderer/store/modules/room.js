@@ -28,7 +28,7 @@ const mutations = {
 }
 
 const actions = {
-  create ({ commit }, room) {
+  save ({ commit }, room) {
     commit('SAVE', room)
   },
   list ({ commit }) {
