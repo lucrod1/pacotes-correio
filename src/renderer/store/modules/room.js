@@ -29,7 +29,6 @@ const actions = {
   },
   list ({ commit }) {
     Room.findAll().then(rooms => {
-      console.log('find all:', rooms)
       commit('LIST_ALL', rooms)
     })
   },
