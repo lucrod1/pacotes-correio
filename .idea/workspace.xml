@@ -168,6 +168,11 @@
             <path>
               <item name="pacotes-correio" type="b2602c69:ProjectViewProjectNode" />
               <item name="pacotes-correio" type="462c0819:PsiDirectoryNode" />
+              <item name="build" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="pacotes-correio" type="b2602c69:ProjectViewProjectNode" />
+              <item name="pacotes-correio" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -260,7 +265,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="24382000" />
+    <option name="totallyTimeSpent" value="24696000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="35" y="23" width="2525" height="1057" extended-state="6" />
