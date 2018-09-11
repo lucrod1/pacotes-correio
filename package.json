@@ -16,7 +16,7 @@
     "pack:renderer": "cross-env NODE_ENV=production webpack --progress --colors --config .electron-vue/webpack.renderer.config.js",
     "test": "npm run unit",
     "unit": "karma start test/unit/karma.conf.js",
-    "rebuild": "electron-rebuild -f -w sqlite3"
+    "rebuild": "electron-rebuild -f -w sqlite3,usb-barcode-scanner"
   },
   "build": {
     "productName": "pacotes-correio",
@@ -58,7 +58,8 @@
     "jquery": "^3.3.1",
     "popper.js": "^1.14.4",
     "sequelize": "^4.38.0",
-    "sqlite3": "https://github.com/mapbox/node-sqlite3/tarball/master",
+    "sqlite3": "^4.0.2",
+    "usb-barcode-scanner": "^1.0.1",
     "vue": "^2.5.16",
     "vue-electron": "^1.0.6",
     "vue-router": "^3.0.1",

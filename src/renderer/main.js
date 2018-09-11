@@ -8,6 +8,9 @@ import store from './store'
 import 'bootstrap';
 import 'popper.js';
 import $ from 'jquery';
+// import _ from 'lodash';
+//
+// import { getDevices, UsbScanner } from 'usb-barcode-scanner';
 
 import {User, sequelize} from './datastore';
 
@@ -32,9 +35,25 @@ new Vue({
 //     console.log(jane.toJSON());
 //   });
 
-User.findAll().then(function(result) {
-  console.log('afff', result);
-});
+//
+// alert(getDevices());
+//
+// console.log();
+//
+// let scanner = new UsbScanner({
+//   //   vendorId: 0x5750,
+//   // productId: 0x5750
+//   path: _.find(getDevices(), { 'serialNumber': 'SC-32' }).path
+//   /** You could also initialize the scanner by giving entering the path variable:
+//    path: 'IOService:/AppleACPI etc...'
+//    **/
+// });
+// //
+// scanner.on('data', (data) => {
+//   alert(data);
+// });
+//
+// scanner.startScanning();
 
 // const path = require('path')
 // const dbPath = path.resolve(__dirname, 'todo.db')

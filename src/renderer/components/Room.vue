@@ -80,6 +80,7 @@
 <script>
   import { mapState } from 'vuex';
   import store from '../store/index';
+  // import { getDevices, UsbScanner } from 'usb-barcode-scanner';
 
   export default {
     name: 'room',
@@ -106,10 +107,12 @@
           this.editing = false;
       },
       save() {
-        store.dispatch('room/save', this.room).then(() => {
-          this.resetRoom();
-          this.refreshRooms();
-        })
+        // store.dispatch('room/save', this.room).then(() => {
+        //   this.resetRoom();
+        //   this.refreshRooms();
+        // })
+        // alert(getDevices());
+        alert('show');
       },
       openForEdit (r) {
         this.room = JSON.parse(JSON.stringify(r));
